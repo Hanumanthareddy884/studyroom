@@ -1,0 +1,11 @@
+Study Room project
+
+* Install the Django
+    pip install django
+* create a project
+    django-admin start-project studyroom
+    if succesfully installed run the project
+    py -manage.py runserver
+
+* create a app
+
