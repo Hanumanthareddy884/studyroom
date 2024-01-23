@@ -8,4 +8,6 @@ Study Room project
     py -manage.py runserver
 
 * create a app
+    py manage.py startapp base(app name)
+
 
