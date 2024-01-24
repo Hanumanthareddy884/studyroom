@@ -5,13 +5,19 @@
 <h1>Home Templates</h1>
 
 <div>
-
+    <a href="{% url "create_form" %}"><h3>Create Room</h3> </a>
     <div>
+
         {% for room in rooms %}
-            <span>@{{room.host}}</span>
-            <h2>{{ room.id }} -- <a href="{% url 'room' room.id %}"> {{ room.name }} </a> </h2>
-            <small>{{ room.topic }}</small>
-            <hr>
+            <div>
+                <a href="{% url 'updated_room' room.id %}">Edit</a>
+                <a href="{% url 'delete_room' room.id %}">Delete</a>
+
+                <span>@{{room.host}}</span>
+                <h2>{{ room.id }} -- <a href="{% url 'room' room.id %}"> {{ room.name }} </a> </h2>
+                <small>{{ room.topic }}</small>
+                <hr>
+            </div>
         {% endfor %}
     </div
 </div>
