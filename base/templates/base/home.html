@@ -4,7 +4,7 @@
 <style>
     .home-container{
         display:grid;
-        grid-template-columns:1fr 3fr ;
+        grid-template-columns:1fr 3fr 1fr;
     }
     .br{
         padding:5px;
@@ -32,7 +32,7 @@
     </div>
     <div>
         <h4>{{rooms.count}} Rooms available</h4>
-        <a href="{% url "create_form" %}"><h3>Create Room</h3> </a>
+        <a href="{% url 'create_form' %}"><h3>Create Room</h3> </a>
         <div>
             {% for room in rooms %}
                 <div>
@@ -46,6 +46,23 @@
                 </div>
             {% endfor %}
         </div>
+    </div>
+    <div>
+        <h3>Recent activity</h3>
+        <hr>
+        {% for mes in room_messages  %}
+        <div>
+            <small>@{{ mes.user }} {{ mes.created|timesince }}</small>
+            <small>replayed to {{mes.room}}</small>
+
+            <p>{{mes.body}}</p>
+            {%if mes.user == request.user%}
+            <a  href="{% url 'delete_message' mes.id %}">Delete</a>
+
+            {%endif%}
+    </div>
+
+        {% endfor %}
     </div>
 </div>
 
