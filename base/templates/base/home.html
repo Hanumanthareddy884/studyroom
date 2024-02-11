@@ -1,21 +1,22 @@
 {% extends "main.html" %}
-
-{% block content %}
-
-
-<h1>Home Templates</h1>
-
-<div class="home-container">
+ {% block content %}
+<main class="layout layout--3">
+  <div class="container">
+    <!-- Topics Start -->
     {% include "base/topic_components.html" %}
 
-    <div>
-        <h4>{{rooms.count}} Rooms available</h4>
-        <a href="{% url 'create_form' %}"><h3>Create Room</h3> </a>
-        {% include "base/feed_component.html" %}
-    </div>
-    
+    <!-- Topics End -->
+
+    <!-- Room List Start -->
+    {% include "base/feed_component.html" %}
+
+    <!-- Room List End -->
+
+    <!-- Activities Start -->
     {% include "base/activity_component.html" %}
-</div>
+   
+    <!-- Activities End -->
+  </div>
+</main>
 
-{% endblock  %}
-
+{% endblock content %}
