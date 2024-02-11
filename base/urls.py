@@ -12,5 +12,6 @@ urlpatterns = [
     path('update-room/<str:pk>',views.updateRoom,name='updated_room'),
     path('delete-room/<str:pk>',views.deleteRoom,name='delete_room'),
     path('delete-message/<str:pk>',views.deleteMessage,name='delete_message'),
+    path('profile/<int:pk>/',views.user_profile,name='profile'),
 
 ]
