@@ -18,7 +18,7 @@
             <h3>Dennis Kardasian Ivy</h3>
             <p>@dennis_ivy</p>
             {% if request.user == user %}
-            <a href="{% url 'update_user' user.id %}" class="btn btn--main btn--pill">Edit Profile</a>
+            <a href="{% url 'update_user'%}" class="btn btn--main btn--pill">Edit Profile</a>
             {% endif %}
           </div>
           <div class="profile__about">
