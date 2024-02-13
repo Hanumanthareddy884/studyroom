@@ -187,6 +187,7 @@ def topicsPage(request):
 
 def activityPage(request):
     room_message =Message.objects.all()
+    print(room_message)
     p = Paginator(room_message,2)
     page_number = request.GET.get('page')
     try:
