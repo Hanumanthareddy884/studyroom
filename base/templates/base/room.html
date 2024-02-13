@@ -120,6 +120,7 @@
                   </a>
                   <span class="thread__date">{{ message.created|timesince }} ago</span>
                 </div>
+                {% if request.user == message.user %}
                 <div class="thread__delete">
                   <a href="{% url 'delete_message' message.id %}">
                   <svg
@@ -135,6 +136,7 @@
                     ></path>
                   </svg></a>
                 </div>
+                {% endif%}
               </div>
               <div class="thread__details">{{message}}
               </div>
