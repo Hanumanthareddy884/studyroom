@@ -8,6 +8,7 @@ from django.contrib.auth import authenticate,login,logout # inbult login,logout 
 from django.contrib.auth.forms import UserCreationForm
 from .models import Room,Topic,Message
 from .forms import RoomForm, UserForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 def loginPage(request):
@@ -61,7 +62,7 @@ def home(request):
         Q(name__icontains = q)|
         Q(description__icontains=q)
         )
-    topics = Topic.objects.all()
+    topics = Topic.objects.all().order_by('room')[0:5]
     room_messages= Message.objects.filter(Q(room__topic__name__icontains=q))
 
     print(room_messages)
@@ -166,3 +167,35 @@ def updateUser(request):
             return redirect('profile',pk=user.id)
     context = {'form':form}
     return render(request,'base/update_user.html',context)
+
+def topicsPage(request):
+    q= request.GET.get('q') if request.GET.get('q') != None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    p = Paginator(topics,5)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)  # returns the desired page object
+    except PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(1)
+    except EmptyPage:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)
+    rooms = Room.objects.all()
+    context = {'topics':page_obj,'rooms':rooms,'page_obj':page_obj}
+    return render(request,'base/topics.html',context)
+
+def activityPage(request):
+    room_message =Message.objects.all()
+    p = Paginator(room_message,2)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)  # returns the desired page object
+    except PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(1)
+    except EmptyPage:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)
+    context = {'room_message':page_obj,'page_obj':page_obj}
+    return render(request,'base/activity.html',context)
